@@ -8,7 +8,6 @@ import {createAccountServer} from "../../../api/queryServer/createAccountServer.
 import {alertErrorToast} from "../../../utils/alertErrorToast.ts";
 import {alertSuccessToast} from "../../../utils/alertSuccessToast.ts";
 import LoadingSuspense from "../../../common/components/LoadingSuspense.tsx";
-import {getAllAccountServer} from "../../../api/queryServer/getAllAccountServer.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks/storeHook.ts";
 import {setAllAccounts} from "../store/actions/accountActions.ts";
 import {AccountModel} from "../../../common/models/AccountModel.ts";
@@ -40,7 +39,7 @@ export default function Account() {
         setIsLoadingCreateAccount(true);
         const file = data.image_logo[0];
         const image_string = await uploadFile(file, file.name);
-        const account:AccountRequestServerModel = {
+        const account: AccountRequestServerModel = {
             business_name: data.business_name,
             account_status: data.account_status,
             business_address: data.business_address,
@@ -53,10 +52,12 @@ export default function Account() {
         console.log('respuesta del servidor al crear una cuenta');
         console.log(response);
         if (response.status === 200) {
-            alertSuccessToast(response.message);
-            resetCreate();
-            setIsShowCreateAccount(false);
-            setIsLoadingCreateAccount(false);
+            dispatch(setAllAccounts()).then(() => {
+                alertSuccessToast(response.message);
+                resetCreate();
+                setIsShowCreateAccount(false);
+                setIsLoadingCreateAccount(false);
+            });
             return;
         }
         setIsLoadingCreateAccount(false);
@@ -64,15 +65,7 @@ export default function Account() {
     }
 
     useEffect(() => {
-        getAllAccountServer().then((response) => {
-            if (response.status === 500) {
-                alertErrorToast(response.message);
-                return;
-            }
-            console.log('respuesta del server al obtener las cuentas');
-            console.log(response);
-            dispatch(setAllAccounts(response.data));
-        });
+        dispatch(setAllAccounts()).then(() => {});
     }, [dispatch]);
 
     return (
@@ -108,6 +101,8 @@ export default function Account() {
                 textButtonConfirm="Create Account"
                 textButtonCancel="Cancel"
                 onClickConfirm={handleSubmitCreate(handleCreateAccount)}
+                isLoading={isLoadingCreateAccount}
+                textIsLoading='Creando...'
             >
                 <CreateAccountComponent
                     register={registerCreate}
