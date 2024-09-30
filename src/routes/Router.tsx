@@ -1,10 +1,8 @@
 import {Toaster} from "react-hot-toast";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
+import HomeUser from "../modules/user/screens/HomeUser.tsx";
 import LoginLayout from "../modules/login/layout/LoginLayout.tsx";
-import Layout from "../modules/super-admin/layout/Layout.tsx";
-import Home from "../modules/super-admin/screens/Home.tsx";
-import Account from "../modules/super-admin/screens/Account.tsx";
-import Users from "../modules/super-admin/screens/Users.tsx";
+import Account from "../modules/user/screens/Account.tsx";
 
 export default function Router() {
 
@@ -16,14 +14,10 @@ export default function Router() {
                 containerClassName="overflow-auto"
             />
             <Routes>
-                <Route path="/login" element={ <LoginLayout/> }/>
-                <Route path="/s_admin" element={ <Layout/> }>
-                    <Route path="home" element={<Home/>}/>
-                    <Route path="account" element={<Account/>}/>
-                    <Route path="user" element={<Users/>}/>
-                    <Route index element={<Navigate to="home"/>}/>
-                </Route>
-                <Route path="/" element={<Navigate to="s_admin"/>}/>
+                <Route path="/" element={ <LoginLayout/> }/>
+                <Route path="/home" element={ <HomeUser/> }/>
+                <Route path="/accounts" element={ <Account/> }/>
+                {/*<Route path="/" element={ <Navigate to="user"/> }/>*/}
             </Routes>
         </>
     );

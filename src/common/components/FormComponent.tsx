@@ -1,11 +1,11 @@
 import {ReactNode} from "react";
 
 interface Props {
-    title:string;
+    title: string;
     children: ReactNode;
 }
 
-export default function FormComponent({children, title}:Props) {
+export default function FormComponent({children, title}: Props) {
 
     return (
         <div className="max-w-3xl mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
@@ -16,5 +16,5 @@ export default function FormComponent({children, title}:Props) {
                 {children}
             </form>
         </div>
-);
+    );
 }

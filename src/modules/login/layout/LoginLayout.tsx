@@ -8,7 +8,7 @@ export default function LoginLayout() {
     const [showLogin, setShowLogin] = useState<string>('login');
 
      return (
-         <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+         <div className="min-h-screen bg-dark-gray flex items-center justify-center">
              {showLogin === 'login' &&
                 <SignIn
                     setShowLogin={(data) => setShowLogin(data)}

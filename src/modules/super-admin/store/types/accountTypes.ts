@@ -1,1 +1,0 @@
-export const ALL_ACCOUNTS = 'ALL_ACCOUNTS';

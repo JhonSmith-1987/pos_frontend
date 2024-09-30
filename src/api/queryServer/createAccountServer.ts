@@ -1,10 +1,9 @@
 import axios from "axios";
-import {AccountRequestServerModel} from "../../modules/super-admin/models/AccountPostModel.ts";
 import {urlApi} from "../urlApi.ts";
 import {ResponseDefaultServerModel} from "../../common/models/ResponseDefaultServerModel.ts";
 import {AccountModel} from "../../common/models/AccountModel.ts";
 
-export async function createAccountServer(data: AccountRequestServerModel): Promise<ResponseDefaultServerModel<AccountModel|null>> {
+export async function createAccountServer(data: any): Promise<ResponseDefaultServerModel<AccountModel|null>> {
     const config = {
         method: 'post',
         maxBodyLength: Infinity,
